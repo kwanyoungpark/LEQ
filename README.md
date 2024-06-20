@@ -2,7 +2,7 @@
 
 This repository contains the official implementation of [Tackling Long-Horizon Tasks with Model-based Offline Reinforcement Learning](@TODO) by [Kwanyoung Park](https://ggosinon.github.io/) and [Youngwoon Lee](https://youngwoon.github.io/).
 
-If you use this code for your research, please consider citing the paper:
+If you use this code for your research, please consider citing our paper:
 ```
 @TODO
 ```
@@ -13,12 +13,12 @@ If you use this code for your research, please consider citing the paper:
 
 ```bash
 conda create -n LEQ python=3.9
+conda activate LEQ
 
 pip install -r requirements.txt
 
-# Install jax
+# Install jax (https://github.com/google/jax#pip-installation-gpu-cuda)
 pip install jax[cuda]==0.4.8 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-Also, see other configurations for CUDA [here](https://github.com/google/jax#pip-installation-gpu-cuda).
 
 # Install glew & others
 conda install -c conda-forge glew
@@ -36,12 +36,12 @@ Also, see other configurations for CUDA [here](https://github.com/google/jax#pip
 
 ### Run training
 
-Locomotion (D4RL)
+D4RL (MuJoCo Locomotion)
 ```bash
 PYTHONPATH='.' python train/train_LEQ.py --env_name=walker2d-medium-replay-v2 --expectile 0.5
 ```
 
-Locomotion (D4RL)
+NeoRL (MuJoCo Locomotion)
 ```bash
 PYTHONPATH='.' python train/train_LEQ.py --env_name=Hopper-v3-medium --expectile 0.1
 ```
@@ -51,5 +51,8 @@ AntMaze
 PYTHONPATH='.' python train_offline.py --env_name=antmaze-large-play-v0 --expectile 0.3
 ```
 
-## Misc
-The implementation is based on [IQL](https://github.com/ikostrikov/implicit_q_learning/).
+## References
+
+* The implementation is based on [IQL](https://github.com/ikostrikov/implicit_q_learning/).
+* MOBILE implementation is from [OfflineRLKit]().
+

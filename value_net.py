@@ -15,7 +15,9 @@ class ValueCritic(nn.Module):
     @nn.compact
     def __call__(self, observations: jnp.ndarray) -> jnp.ndarray:
         observations = (observations - self.scaler[0]) / self.scaler[1]
-        critic = MLP((*self.hidden_dims, 1), use_norm=self.use_norm, use_symlog=self.use_symlog)(observations)
+        critic = MLP(
+            (*self.hidden_dims, 1), use_norm=self.use_norm, use_symlog=self.use_symlog
+        )(observations)
         return jnp.squeeze(critic, -1)
 
 
@@ -27,12 +29,15 @@ class Critic(nn.Module):
     use_symlog: bool = True
 
     @nn.compact
-    def __call__(self, observations: jnp.ndarray,
-                 actions: jnp.ndarray) -> jnp.ndarray:
+    def __call__(self, observations: jnp.ndarray, actions: jnp.ndarray) -> jnp.ndarray:
         inputs = jnp.concatenate([observations, actions], -1)
         inputs = (inputs - self.scaler[0]) / self.scaler[1]
-        critic = MLP((*self.hidden_dims, 1),
-                     activations=self.activations, use_norm=self.use_norm, use_symlog=self.use_symlog)(inputs)
+        critic = MLP(
+            (*self.hidden_dims, 1),
+            activations=self.activations,
+            use_norm=self.use_norm,
+            use_symlog=self.use_symlog,
+        )(inputs)
         return jnp.squeeze(critic, -1)
 
 
@@ -44,14 +49,21 @@ class DoubleCritic(nn.Module):
     use_symlog: bool = True
 
     @nn.compact
-    def __call__(self, observations: jnp.ndarray,
-                 actions: jnp.ndarray) -> Tuple[jnp.ndarray, jnp.ndarray]:
-        critic1 = Critic(self.scaler, self.hidden_dims,
-                         activations=self.activations,
-                         use_norm=self.use_norm,
-                         use_symlog=self.use_symlog)(observations, actions)
-        critic2 = Critic(self.scaler, self.hidden_dims,
-                         activations=self.activations,
-                         use_norm=self.use_norm,
-                         use_symlog=self.use_symlog)(observations, actions)
+    def __call__(
+        self, observations: jnp.ndarray, actions: jnp.ndarray
+    ) -> Tuple[jnp.ndarray, jnp.ndarray]:
+        critic1 = Critic(
+            self.scaler,
+            self.hidden_dims,
+            activations=self.activations,
+            use_norm=self.use_norm,
+            use_symlog=self.use_symlog,
+        )(observations, actions)
+        critic2 = Critic(
+            self.scaler,
+            self.hidden_dims,
+            activations=self.activations,
+            use_norm=self.use_norm,
+            use_symlog=self.use_symlog,
+        )(observations, actions)
         return critic1, critic1

@@ -11,8 +11,7 @@ class SinglePrecision(gym.ObservationWrapper):
 
         if isinstance(self.observation_space, Box):
             obs_space = self.observation_space
-            self.observation_space = Box(obs_space.low, obs_space.high,
-                                         obs_space.shape)
+            self.observation_space = Box(obs_space.low, obs_space.high, obs_space.shape)
         elif isinstance(self.observation_space, Dict):
             obs_spaces = copy.copy(self.observation_space.spaces)
             for k, v in obs_spaces.items():

@@ -6,9 +6,9 @@ import numpy as np
 import d4rl_ext.infos
 from d4rl_ext.offline_env import set_dataset_path, get_keys
 
-SUPPRESS_MESSAGES = bool(os.environ.get('D4RL_SUPPRESS_IMPORT_ERROR', 0))
+SUPPRESS_MESSAGES = bool(os.environ.get("D4RL_SUPPRESS_IMPORT_ERROR", 0))
 
-_ERROR_MESSAGE = 'Warning: %s failed to import. Set the environment variable D4RL_SUPPRESS_IMPORT_ERROR=1 to suppress this message.'
+_ERROR_MESSAGE = "Warning: %s failed to import. Set the environment variable D4RL_SUPPRESS_IMPORT_ERROR=1 to suppress this message."
 
 try:
     import d4rl_ext.locomotion
@@ -18,47 +18,50 @@ try:
     import d4rl_ext.gym_mujoco
 except ImportError as e:
     if not SUPPRESS_MESSAGES:
-        print(_ERROR_MESSAGE % 'Mujoco-based envs', file=sys.stderr)
+        print(_ERROR_MESSAGE % "Mujoco-based envs", file=sys.stderr)
         print(e, file=sys.stderr)
 
 try:
     import d4rl_ext.flow
 except ImportError as e:
     if not SUPPRESS_MESSAGES:
-        print(_ERROR_MESSAGE % 'Flow', file=sys.stderr)
+        print(_ERROR_MESSAGE % "Flow", file=sys.stderr)
         print(e, file=sys.stderr)
 
 try:
     import d4rl_ext.kitchen
 except ImportError as e:
     if not SUPPRESS_MESSAGES:
-        print(_ERROR_MESSAGE % 'FrankaKitchen', file=sys.stderr)
+        print(_ERROR_MESSAGE % "FrankaKitchen", file=sys.stderr)
         print(e, file=sys.stderr)
 
 try:
     import d4rl_ext.carla
 except ImportError as e:
     if not SUPPRESS_MESSAGES:
-        print(_ERROR_MESSAGE % 'CARLA', file=sys.stderr)
+        print(_ERROR_MESSAGE % "CARLA", file=sys.stderr)
         print(e, file=sys.stderr)
-        
+
 try:
     import d4rl_ext.gym_bullet
     import d4rl_ext.pointmaze_bullet
 except ImportError as e:
     if not SUPPRESS_MESSAGES:
-        print(_ERROR_MESSAGE % 'GymBullet', file=sys.stderr)
+        print(_ERROR_MESSAGE % "GymBullet", file=sys.stderr)
         print(e, file=sys.stderr)
+
 
 def reverse_normalized_score(env_name, score):
     ref_min_score = d4rl_ext.infos.REF_MIN_SCORE[env_name]
     ref_max_score = d4rl_ext.infos.REF_MAX_SCORE[env_name]
     return (score * (ref_max_score - ref_min_score)) + ref_min_score
 
+
 def get_normalized_score(env_name, score):
     ref_min_score = d4rl_ext.infos.REF_MIN_SCORE[env_name]
     ref_max_score = d4rl_ext.infos.REF_MAX_SCORE[env_name]
     return (score - ref_min_score) / (ref_max_score - ref_min_score)
+
 
 def qlearning_dataset(env, dataset=None, terminate_on_end=False, **kwargs):
     """
@@ -86,7 +89,7 @@ def qlearning_dataset(env, dataset=None, terminate_on_end=False, **kwargs):
     if dataset is None:
         dataset = env.get_dataset(**kwargs)
 
-    N = dataset['rewards'].shape[0]
+    N = dataset["rewards"].shape[0]
     obs_ = []
     next_obs_ = []
     action_ = []
@@ -96,25 +99,25 @@ def qlearning_dataset(env, dataset=None, terminate_on_end=False, **kwargs):
     # The newer version of the dataset adds an explicit
     # timeouts field. Keep old method for backwards compatability.
     use_timeouts = False
-    if 'timeouts' in dataset:
+    if "timeouts" in dataset:
         use_timeouts = True
 
     episode_step = 0
-    for i in range(N-1):
-        obs = dataset['observations'][i].astype(np.float32)
-        new_obs = dataset['observations'][i+1].astype(np.float32)
-        action = dataset['actions'][i].astype(np.float32)
-        reward = dataset['rewards'][i].astype(np.float32)
-        done_bool = bool(dataset['terminals'][i])
+    for i in range(N - 1):
+        obs = dataset["observations"][i].astype(np.float32)
+        new_obs = dataset["observations"][i + 1].astype(np.float32)
+        action = dataset["actions"][i].astype(np.float32)
+        reward = dataset["rewards"][i].astype(np.float32)
+        done_bool = bool(dataset["terminals"][i])
 
         if use_timeouts:
-            final_timestep = dataset['timeouts'][i]
+            final_timestep = dataset["timeouts"][i]
         else:
-            final_timestep = (episode_step == env._max_episode_steps - 1)
+            final_timestep = episode_step == env._max_episode_steps - 1
         if (not terminate_on_end) and final_timestep:
             # Skip this transition and don't apply terminals on the last step of an episode
             episode_step = 0
-            continue  
+            continue
         if done_bool or final_timestep:
             episode_step = 0
 
@@ -126,11 +129,11 @@ def qlearning_dataset(env, dataset=None, terminate_on_end=False, **kwargs):
         episode_step += 1
 
     return {
-        'observations': np.array(obs_),
-        'actions': np.array(action_),
-        'next_observations': np.array(next_obs_),
-        'rewards': np.array(reward_),
-        'terminals': np.array(done_),
+        "observations": np.array(obs_),
+        "actions": np.array(action_),
+        "next_observations": np.array(next_obs_),
+        "rewards": np.array(reward_),
+        "terminals": np.array(done_),
     }
 
 
@@ -154,22 +157,22 @@ def sequence_dataset(env, dataset=None, **kwargs):
     if dataset is None:
         dataset = env.get_dataset(**kwargs)
 
-    N = dataset['rewards'].shape[0]
+    N = dataset["rewards"].shape[0]
     data_ = collections.defaultdict(list)
 
     # The newer version of the dataset adds an explicit
     # timeouts field. Keep old method for backwards compatability.
     use_timeouts = False
-    if 'timeouts' in dataset:
+    if "timeouts" in dataset:
         use_timeouts = True
 
     episode_step = 0
     for i in range(N):
-        done_bool = bool(dataset['terminals'][i])
+        done_bool = bool(dataset["terminals"][i])
         if use_timeouts:
-            final_timestep = dataset['timeouts'][i]
+            final_timestep = dataset["timeouts"][i]
         else:
-            final_timestep = (episode_step == env._max_episode_steps - 1)
+            final_timestep = episode_step == env._max_episode_steps - 1
 
         for k in dataset:
             data_[k].append(dataset[k][i])
@@ -183,4 +186,3 @@ def sequence_dataset(env, dataset=None, **kwargs):
             data_ = collections.defaultdict(list)
 
         episode_step += 1
-

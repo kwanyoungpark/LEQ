@@ -8,6 +8,7 @@ from wrappers.common import TimeStep
 
 class EpisodeMonitor(gym.ActionWrapper):
     """A class that computes episode returns and lengths."""
+
     def __init__(self, env: gym.Env):
         super().__init__(env)
         self._reset_stats()
@@ -24,17 +25,18 @@ class EpisodeMonitor(gym.ActionWrapper):
         self.reward_sum += reward
         self.episode_length += 1
         self.total_timesteps += 1
-        info['total'] = {'timesteps': self.total_timesteps}
+        info["total"] = {"timesteps": self.total_timesteps}
 
         if done:
-            info['episode'] = {}
-            info['episode']['return'] = self.reward_sum
-            info['episode']['length'] = self.episode_length
-            info['episode']['duration'] = time.time() - self.start_time
+            info["episode"] = {}
+            info["episode"]["return"] = self.reward_sum
+            info["episode"]["length"] = self.episode_length
+            info["episode"]["duration"] = time.time() - self.start_time
 
-            if hasattr(self, 'get_normalized_score'):
-                info['episode']['return'] = self.get_normalized_score(
-                    info['episode']['return']) * 100.0
+            if hasattr(self, "get_normalized_score"):
+                info["episode"]["return"] = (
+                    self.get_normalized_score(info["episode"]["return"]) * 100.0
+                )
 
         return observation, reward, done, info
 
