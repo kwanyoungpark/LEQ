@@ -1,0 +1,13 @@
+opencv-python
+tqdm
+absl-py
+ml_collections
+tensorboardX
+wandb
+orbax-checkpoint==0.2.1
+gym==0.23.1
+flax==0.7.2
+torch==1.11.0
+tensorflow_probability==0.21.0
+tensorboard==2.13.0
+cython<3
