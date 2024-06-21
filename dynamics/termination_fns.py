@@ -1,3 +1,6 @@
+## Termination functions are mostly from MOBILE (https://github.com/yihaosun1124/mobile/blob/main/utils/termination_fns.py)
+## For antmaze tasks, we borrowed the formula from CBOP implementation (https://github.com/jihwan-jeong/CBOP/blob/3fb693e513547af87bb59dca9c34c35fc101b55b/rlkit/envs/termination_funcs.py)
+
 import numpy as np
 import jax.numpy as jnp
 import jax

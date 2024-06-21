@@ -14,8 +14,6 @@ def get_config():
     config.temperature = 0.0
     config.dropout_rate = None
 
-    config.tau = 0.02  # For soft target updates.
-
     ## World Model
     config.num_models = 7
     config.num_elites = 5
