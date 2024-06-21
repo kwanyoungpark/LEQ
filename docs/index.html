@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="LEQ(Lower-Expectile Q learning) enables learning long-horizon tasks">
+  <meta name="keywords" content="LEQ, Offline RL, Model-based, Expectile regression">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Tackling Long-Horizon Tasks with Model-based Offline Reinforcement Learning </title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Tackling Long-Horizon Tasks with Model-based Offline Reinforcement Learning</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://GGOSinon.github.io">Kwanyoung Park</a>,</span>
+            <span class="author-block">
+              <a href="https://youngwoon.github.io">Youngwoon Lee</a></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Yonsei University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light">
+  <div class="container is-max-desktop">
+    <br>
+    <h2 class="title is-3 has-text-centered">Abstract</h2>
+    <table style="border-collapse:separate;border-spacing:0.5cm;">
+    <tr>
+      <td width="33%">
+        <video id="teaser" autoplay muted loop playsinline width="100%">
+          <source src="./static/videos/Antmaze-medium-MOBILE-cut.mp4" type="video/mp4">
+        </video> 
+        <h2 class="has-text-centered" style="font-size:20px">
+          MOBILE
+        </h2>
+      </td>
+      <td width="33%">
+        <video id="teaser" autoplay muted loop playsinline width="100%">
+          <source src="./static/videos/Antmaze-medium-LEQ-cut.mp4" type="video/mp4">
+        </video>
+        <h2 class="has-text-centered" style="font-size:20px">
+          <strong> LEQ (Ours) </strong>
+        </h2>
+      </td>
+      <td width="33%">
+        <video id="teaser" autoplay muted loop playsinline width="100%">
+          <source src="./static/videos/Antmaze-medium-CBOP-cut.mp4" type="video/mp4">
+        </video>
+        <h2 class="has-text-centered" style="font-size:20px">
+          CBOP
+        </h2>
+      </td>
+    </tr>
+    </table>
+    <ul class="a">
+      <li> Model-based approaches on offline RL falls short in solving long-horizon tasks due to high bias in value estimation from model rollouts.
+      <li> In this paper, we introduce a novel model-based offline RL method, <strong>Lower Expectile Q-learning (LEQ)</strong>, which enhances long-horizon task performance by mitigating the high bias in model-based value estimation via expectile regression of λ-returns.
+      <li> Our empirical results show that <strong>LEQ significantly outperforms previous model-based offline RL methods on long-horizon tasks</strong>, such as the D4RL AntMaze tasks, matching or surpassing the performance of model-free approaches.
+    </ul>
+    <br>
+  </div>
+</section>
+
+
+<!--/ section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Model-based offline reinforcement learning (RL) is a compelling approach that addresses the challenge of learning from limited, static data by generating imaginary trajectories using learned models.
+            However, it falls short in solving long-horizon tasks due to high bias in value estimation from model rollouts.
+            In this paper, we introduce a novel model-based offline RL method, Lower Expectile Q-learning (LEQ), which enhances long-horizon task performance by mitigating the high bias in model-based value estimation via expectile regression of $\lambda$-returns.
+            Our empirical results show that LEQ significantly outperforms previous model-based offline RL methods on long-horizon tasks, such as the D4RL AntMaze tasks, matching or surpassing the performance of model-free approaches.
+            Our experiments demonstrate that both expectile regression and $\lambda$-returns are crucial for addressing long-horizon tasks.
+            Additionally, LEQ achieves performance comparable to state-of-the-art model-based and model-free offline RL methods on the NeoRL benchmark and the D4RL MuJoCo Gym tasks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section -->
+
+<section class="section" id="Method">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <h3 class="title is-3">Lower-Expectile Q learning (LEQ)</h3>
+    </div>
+    <br>
+    <h2 class="title is-4" style="margin-bottom:0cm;">Lower expectile</h2>
+    <td id="Antmaze_results">
+      <video id="teaser" autoplay muted loop playsinline width="100%">
+        <source src="./static/videos/Figure1_mp4.mov" type="video/mp4">
+      </video>
+      <ul class="a">
+        <li> To mitigate the <strong>overestimation</strong> problem in estimating the true Q-value from inaccurate world model rollouts, we propose to use <strong>expectile regression</strong> on target Q-value estimation with small τ. </li>
+        <li> Expectile regression with small τ tends to choose the target Q-value that is lower than the expectation, effectively providing a conservative estimate of target Q-value. </li>
+        <li> Another advantage of using expectile regression is that we do not have to exhaustively evaluate Q-values to get τ-expectile, we can calculate conservative estimation only with <strong>single trajectory</strong>. </li>
+      </ul>
+    </td>
+    <br>
+    <br>
+    <h2 class="title is-4" style="margin-bottom:0cm;">λ-returns</h2>
+    <br>
+    <td id="Antmaze_results">
+      <!--/img src="./static/images/lambda-return.png" width="100%"-->
+      <video id="teaser" autoplay muted loop playsinline width="100%">
+        <source src="./static/videos/Figure2_mp4.mov" type="video/mp4">
+      </video>
+      <ul class="a">
+        <li> To further improve LEQ for long-horizon tasks, we use <strong>λ-return</strong> instead of 1-step return for Q-learning.
+        <li> λ-return allows a Q-function and policy to learn from low-bias multi-step returns.
+        <li> Not only for <strong>learning the critic</strong>, we propose to directly maximize the λ-returns also for <strong>learning the policy</strong>.
+      </ul>
+    </td>
+    <br>
+    <br>
+    <h2 class="title is-4" style="margin-bottom:0cm;">Utilizing transitions of the dataset</h2>
+    <br>
+    <td id="Antmaze_results">
+      <img src="./static/images/betav3.png" width="100%">
+      <ul class="a">
+        <li> We found that β, the ratio for the loss calculated by the imaginary trajectory and by dataset transition, was crucial on achieving non-zero scores.
+        <li> When we use β = 0.95, which is used by MOBILE as default, the performance drops to zero.
+        <li> We suggest that <strong>utilizing the true transition from the dataset is important</strong> in long-horizon tasks, which was undervalued in prior works.
+      </ul>
+    </td>
+  </div>
+</section>
+
+
+<section class="hero is-light" id="Experiment">
+  <br>
+  <br>
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <h3 class="title is-3">Experiments</h3>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="container is-max-desktop">
+    <h2 class="title is-4" style="margin-bottom:0.5cm;">Antmaze</h2>
+      <td id="Antmaze_results">
+        <img src="./static/images/antmaze-result.png" width="100%" style="margin-left:0cm;margin-right:0cm">
+      </td>
+      <ul class="a">
+        <li> <strong>LEQ significantly outperforms</strong> the prior model-based approaches for all 8 datasets. 
+        <li> LEQ even performs better than model-free baselines in larger mazes.
+      </ul>
+      <table style="margin-top:10px;border-collapse:separate;border-spacing:0.5cm;">
+        <tr>
+          <td width=25%>
+            <video id="teaser" autoplay muted loop playsinline width="100%">
+              <source src="./static/videos/Antmaze-umaze-LEQ-cut.mp4" type="video/mp4">
+            </video>
+            <h2 class="has-text-centered" style="font-size:20px">
+              (a) umaze
+            </h2>
+          </td>
+          <td width=25%>
+            <video id="teaser" autoplay muted loop playsinline width="100%">
+              <source src="./static/videos/Antmaze-medium-LEQ-cut.mp4" type="video/mp4">
+            </video>
+            <h2 class="has-text-centered" style="font-size:20px">
+              (b) medium
+            </h2>
+          </td>
+          <td width=18.5%>
+            <video id="teaser" autoplay muted loop playsinline width="100%">
+              <source src="./static/videos/Antmaze-large-LEQ-cut.mp4" type="video/mp4">
+            </video>
+            <h2 class="has-text-centered" style="font-size:20px">
+              (c) large
+            </h2>
+          </td>
+          <td width=19%>
+            <video id="teaser" autoplay muted loop playsinline width="100%">
+              <source src="./static/videos/Antmaze-ultra-LEQ-cut.mp4" type="video/mp4">
+            </video>
+            <h2 class="has-text-centered" style="font-size:20px">
+              (d) ultra
+            </h2>
+          </td>
+        </tr>
+      </table>
+    <br>
+    <h2 class="title is-4" style="margin-bottom:0.5cm;">Locomotions</h2>
+      <td id="Antmaze_results">
+        <img src="./static/images/d4rl-result.png" width="100%">
+      </td>
+      <ul class="a" style="margin-bottom:0.5cm;">
+        <li> For D4RL MuJoCo Gym tasks, <strong>LEQ achieves comparable results </strong> with best score of prior works in 6 out of 12 tasks.
+        <li> These experiments show that <strong>LEQ serves as a general offline RL algorithm</strong>, not limited to long-horizon tasks.
+      </ul>
+      <!--/ table style="margin-top:10px">
+      <tr>
+      <td>
+        <video id="teaser" autoplay muted loop playsinline width="100%">
+          <source src="./static/videos/hopper-me.mp4" type="video/mp4">
+        </video>
+      </td>
+      <td>
+        <video id="teaser" autoplay muted loop playsinline width="100%">
+          <source src="./static/videos/walker2d-me.mp4" type="video/mp4">
+        </video>
+      </td>
+      <td>
+        <video id="teaser" autoplay muted loop playsinline width="100%">
+          <source src="./static/videos/halfcheetah-me.mp4" type="video/mp4">
+        </video>
+      </td>
+      </tr>
+      </table -->
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX" style="margin-top:-0.5cm;">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
