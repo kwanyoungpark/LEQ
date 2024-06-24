@@ -172,7 +172,7 @@ def _update_jit(
         assert False, f"actor_update: {actor_update}"
 
     if critic_update == "one-step":
-        new_critic, new_beta_info, critic_info = onestep_update_q(
+        new_critic, critic_info = onestep_update_q(
             key3,
             critic,
             target_critic,
