@@ -34,25 +34,47 @@ pip install scipy==1.10.1
 ```
 Also, see other configurations for CUDA [here](https://github.com/google/jax#pip-installation-gpu-cuda).
 
+### Pretrain world model
+
+For training the world model, we use the training script of [OfflineRL-Kit](https://github.com/yihaosun1124/mobile/tree/main).
+
+For convenience, we provide `run_dynamics.py` that can be utilized to train the model with OfflineRL-Kit.
+```bash
+cd ..
+git clone https://github.com/yihaosun1124/OfflineRL-Kit
+cd OfflineRL-Kit
+python setup.py install
+cp ../LEQ/dynamics/run_dynamics.py run_example/run_dynamics.py
+cp -r ../LEQ/d4rl_ext .
+```
+
+Now, you can train the model with the `run_dynamics.py`. For example, you can run the command as below:
+```bash
+python run_example/run_dynamics.py --task antmaze-medium-replay-v2 --seed 3
+```
+
 ### Run training
 
-D4RL (MuJoCo Locomotion)
+#### LEQ
+
 ```bash
 PYTHONPATH='.' python train/train_LEQ.py --env_name=walker2d-medium-replay-v2 --expectile 0.5
 ```
 
-NeoRL (MuJoCo Locomotion)
+#### MOBILEQ (Please refer to the ablation study section of the paper for details)
+
 ```bash
-PYTHONPATH='.' python train/train_LEQ.py --env_name=Hopper-v3-medium --expectile 0.1
+PYTHONPATH='.' python train/train_MOBILEQ.py --env_name=Hopper-v3-medium --beta 1.0
 ```
 
-AntMaze
+#### MOBILE (Jax implementation of [Sun et al.](https://github.com/yihaosun1124/mobile/tree/main))
+
 ```bash
-PYTHONPATH='.' python train_offline.py --env_name=antmaze-large-play-v0 --expectile 0.3
+PYTHONPATH='.' python train/train_MOBILE.py --env_name=antmaze-large-play-v2 --beta 1.0
 ```
 
 ## References
 
 * The implementation is based on [IQL](https://github.com/ikostrikov/implicit_q_learning/).
-* MOBILE implementation is from [OfflineRLKit]().
+* MOBILE implementation is from [OfflineRLKit](https://github.com/yihaosun1124/OfflineRL-Kit).
 
