@@ -1,10 +1,15 @@
 # Tackling Long-Horizon Tasks with Model-based Offline Reinforcement Learning
 
-This repository contains the official implementation of [Tackling Long-Horizon Tasks with Model-based Offline Reinforcement Learning](@TODO) by [Kwanyoung Park](https://ggosinon.github.io/) and [Youngwoon Lee](https://youngwoon.github.io/).
+This repository contains the official implementation of [Tackling Long-Horizon Tasks with Model-based Offline Reinforcement Learning](https://kwanyoungpark.github.io/LEQ/) by [Kwanyoung Park](https://kwanyoungpark.github.io/) and [Youngwoon Lee](https://youngwoon.github.io/).
 
 If you use this code for your research, please consider citing our paper:
 ```
-@TODO
+@article{park2024tackling,
+  title={Tackling Long-Horizon Tasks with Model-based Offline Reinforcement Learning},
+  author={Kwanyoung Park and Youngwoon Lee},
+  journal={arXiv Preprint arxiv:2407.00699},
+  year={2024}
+}
 ```
 
 ## How to run the code
