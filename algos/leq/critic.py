@@ -15,7 +15,7 @@ def update_q_fqe(
     next_value = critic(batch.next_observations, next_a)
     target_q_data = batch.rewards + batch.masks * discount * next_value
 
-    target_q = target_critic(batch.next_observations, next_a)
+    target_q = target_critic(batch.observations, batch.actions)
 
     def critic_loss_fn(critic_params: Params) -> Tuple[jnp.ndarray, InfoDict]:
         q = critic.apply({"params": critic_params}, batch.observations, batch.actions)
