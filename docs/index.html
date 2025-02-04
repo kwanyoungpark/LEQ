@@ -6,7 +6,7 @@
         content="LEQ (Lower Expectile Q-learning) enables learning long-horizon tasks offline">
   <meta name="keywords" content="LEQ, Offline RL, Model-based, Expectile regression">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Tackling Long-Horizon Tasks with Model-based Offline Reinforcement Learning </title>
+  <title> Model-based Offline Reinforcement Learning with Lower Expectile Q-learning </title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -33,7 +33,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Tackling Long-Horizon Tasks with Model-based Offline Reinforcement Learning</h1>
+          <h1 class="title is-1 publication-title"> Model-based Offline Reinforcement Learning with Lower Expectile Q-learning </h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://kwanyoungpark.github.io">Kwanyoung Park</a>,</span>
@@ -250,25 +250,45 @@
         <li> For D4RL MuJoCo Gym tasks, <strong>LEQ achieves comparable results </strong> with best score of prior works in 6 out of 12 tasks.
         <li> These experiments show that <strong>LEQ serves as a general offline RL algorithm</strong>, not limited to long-horizon tasks.
       </ul>
-      <!--/ table style="margin-top:10px">
+      <!--
+      <table style="margin-top:10px;border-collapse:separate;border-spacing:0.5cm;">
       <tr>
-      <td>
+      <td width=33%>
         <video id="teaser" autoplay muted loop playsinline width="100%">
           <source src="./static/videos/hopper-me.mp4" type="video/mp4">
-        </video>
+        </video> 
+        <h2 class="has-text-centered" style="font-size:20px">
+          (a) Hopper
+        </h2>
       </td>
-      <td>
+      <td width=33%>
         <video id="teaser" autoplay muted loop playsinline width="100%">
           <source src="./static/videos/walker2d-me.mp4" type="video/mp4">
         </video>
+        <h2 class="has-text-centered" style="font-size:20px">
+          (b) Walker2d
+        </h2>
       </td>
-      <td>
+      <td width=33%>
         <video id="teaser" autoplay muted loop playsinline width="100%">
           <source src="./static/videos/halfcheetah-me.mp4" type="video/mp4">
         </video>
+        <h2 class="has-text-centered" style="font-size:20px">
+          (c) HalfCheetah
+        </h2>
       </td>
       </tr>
-      </table -->
+      </table>
+      -->
+    <br>
+    <h2 class="title is-4" style="margin-bottom:0.5cm;">Visual Control</h2>
+      <td id="VD4RL_results">
+        <img src="./static/images/V-D4RL.png" width="100%">
+      </td>
+      <ul class="a" style="margin-bottom:0.5cm;">
+        <li> For V-D4RL datasets, <strong>LEQ is on par </strong> with the state-of-the-art methods.
+        <li> These experiments show the <strong>scalablity of LEQ</strong> to visual observations.
+      </ul>
   </div>
 </section>
 
@@ -276,8 +296,8 @@
 <section class="section" id="BibTeX" style="margin-top:-0.5cm;">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2024tackling,
-  title={Tackling Long-Horizon Tasks with Model-based Offline Reinforcement Learning},
+    <pre><code>@article{park2024leq,
+  title={Model-based Offline Reinforcement Learning with Lower Expectile Q-learning},
   author={Kwanyoung Park and Youngwoon Lee},
   journal={arXiv Preprint arxiv:2407.00699},
   year={2024}
